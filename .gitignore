@@ -1,0 +1,16 @@
+**/target
+**/bin
+**/release.properties
+**/.classpath
+**/.project
+**/.settings
+**/.externalToolBuilders
+**/maven-eclipse.xml
+**/*.releaseBackup
+.project
+.settings
+target
+.classpath
+*.iml
+.idea/
+ads-user-manager-infra/src/main/resources/docker/app/maven/*.jar
