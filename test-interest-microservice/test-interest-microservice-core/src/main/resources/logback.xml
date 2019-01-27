@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[@project.version@][%d{dd-MM-yyyy HH:mm:ss,Brazil/East}] %p %c - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Append>true</Append>
+        <File>/var/log/@project.parent.artifactId@/@project.parent.artifactId@.log</File>
+        <encoder>
+            <pattern>[${project.version}][%d{dd-MM-yyyy HH:mm:ss,Brazil/East}] %p %c - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/log/@project.parent.artifactId@/@project.parent.artifactId@.log.%d{yyyy-MM-dd-HH}-%d{SSS, aux}</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="LOG"/>
+        <appender-ref ref="${rootLog:-STDOUT}"/>
+    </root>
+</configuration>

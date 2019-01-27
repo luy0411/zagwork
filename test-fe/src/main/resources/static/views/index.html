@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>ZagWork Test</title>
+</head>
+<body ng-app="zagworkTestApp">
+    <div class="container" ng-controller="MainController">
+
+        <form class="form-signin">
+            <div class="text-center mb-4">
+                <img class="mb-4" src="https://cdn0.iconfinder.com/data/icons/investment-flat-outline-asset-allocation/512/Interest_rate-512.png" alt="" width="100" height="100">
+                <h1 class="h3 mb-3 font-weight-normal">ZagWork Test</h1>
+                <p>Preencha os dados abaixo e clique em enviar:</p>
+            </div>
+
+            <div class="form-label-group">
+                <input type="text" id="username" name="username" class="form-control" placeholder="Nome" required
+                       oninput="setCustomValidity('')" ng-model="data.username" oninvalid="setCustomValidity('Preencha o nome do usuário')" >
+                <label for="username">Nome do Usuário: </label>
+            </div>
+
+            <div class="form-label-group">
+                <input type="number" id="limit" name="limit" class="form-control" placeholder="Limite de Crédito (R$)" required
+                       oninput="setCustomValidity('')" ng-model="data.limit" oninvalid="setCustomValidity('Preencha o limite de crédito')">
+                <label for="limit">Limite de Crédito (R$): </label>
+            </div>
+
+            <div class="form-label-group">
+                <select id="risk" name="risk" class="form-control" ng-model="data.risk" required
+                        oninvalid="setCustomValidity('Escolha um tipo de risco')">
+                    <option value="" selected disabled>Tipo de risco: </option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                </select>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block" ng-click="sendAll()">Enviar</button>
+
+            <br/><br/>
+            <p class="mt-5 mb-3 text-muted text-center">© by Luis Santos - 2019</p>
+        </form>
+
+        <div class="modal" id="userModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Últimos dados salvos para o usuário: {{username}} </h5>
+                        <button type="button" class="close" ng-click="closeModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="userTable" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>Registro</th>
+                                <th>Usuário</th>
+                                <th>Nome do Usuário</th>
+                                <th>Limite de Crédito</th>
+                                <th>Tipo de Risco</th>
+                                <th>% Juros</th>
+                                <th>Enviado em:</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in dataList">
+                                <td>{{item.id}}</td>
+                                <td>{{item.userId}}</td>
+                                <td>{{username}}</td>
+                                <td>{{item.limit}}</td>
+                                <td>{{item.riskType}}</td>
+                                <td>{{item.interestPercent * 100.0}}%</td>
+                                <td>{{item.date}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" ng-click="closeModal()">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="errorModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Eita, parece que tivemos algum problema... =(</h5>
+                        <button type="button" class="close" ng-click="closeErrorModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        Aguarde um momento e tente novamente. Se o problema persistir encaminhe os dados abaixo para
+                        o responsável pelo sistema e informe passo a passo como o erro aconteceu:
+                        <br /><br />
+                        <h6>Código do Erro:</h6> {{statusCode}}
+                        <br />
+                        <h6>Detalhes Técnicos:</h6> {{errorMessage}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" ng-click="closeErrorModal()">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="js/lib/jquery-3.3.1.min.js"></script>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/lib/bootstrap.min.js"></script>
+<script src="js/lib/datatables.min.js"></script>
+<script src="js/app/app.js"></script>
+<script src="js/app/MainController.js"></script>
+<script src="js/app/MainService.js"></script>
+<link rel="stylesheet" href="css/lib/bootstrap.min.css"/>
+<link rel="stylesheet" href="css/lib/datatables.min.css"/>
+<link rel="stylesheet" href="css/lib/jquery.dataTables.min.css"/>
+<link rel="stylesheet" href="css/app/app.css"/>
+
+</html>
